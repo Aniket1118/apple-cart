@@ -3,14 +3,21 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import {delItem} from '../redux/actions/index'
 import { NavLink } from 'react-router-dom'
+import { useState } from 'react'
+
 
 
 const Cart = () => {
+    const[qty,setQty] = useState(0);
     const state = useSelector((state)=> state.addItem)
     const dispatch = useDispatch()
 
     const handleClose = (item) => {
         dispatch(delItem(item))
+    }
+    const handleClick = (qty) => {
+        setQty(qty+1);
+        
     }
 
     const cartItems = (cartItem) => {
@@ -25,7 +32,13 @@ const Cart = () => {
                         <div className="col-md-4">
                             <h3>{cartItem.title}</h3>
                             <p className="lead fw-bold">${cartItem.price}</p>
+                            <p className="lead fw-bold"> 
+                            Qty : -  <button className='buttons mx-2' onClick={() => handleClick(qty)}>+</button> {qty}
+                            <button className='buttons mx-2'>-</button></p>
+                            
+                           
                         </div>
+                       
                     </div>
                 </div>
             </div>
